@@ -72,7 +72,7 @@ LambdaExpression {
 }
 
 InferredParameters {
-  "(" Identifier ~identifier ("," Identifier)* ")"
+  "(" commaSep1<Identifier ~identifier> ")"
 }
 
 TernaryExpression {
@@ -142,7 +142,7 @@ MethodInvocation {
 }
 
 ArgumentList {
-  "(" (expression ("," expression)*)? ")"
+  "(" commaSep<expression> ")"
 }
 
 MethodReference {
@@ -150,7 +150,7 @@ MethodReference {
 }
 
 TypeArguments {
-  "<" ((type | Wildcard) ("," (type | Wildcard))*)? ">"
+  "<" commaSep<type | Wildcard> ">"
 }
 
 Wildcard {
@@ -288,7 +288,7 @@ WhileStatement {
 ForStatement {
   kw<"for">
   ForSpec {
-    "(" (LocalVariableDeclaration | (expression ("," expression)*)? ";") expression? ";" (expression ("," expression)*)? ")"
+    "(" (LocalVariableDeclaration | commaSep<expression> ";") expression? ";" commaSep<expression> ")"
   }
   statement
 }
@@ -315,7 +315,7 @@ Annotation {
 }
 
 AnnotationArgumentList {
-  "(" (elementValue | (ElementValuePair ("," ElementValuePair)*)?) ")"
+  "(" (elementValue | commaSep<ElementValuePair>) ")"
 }
 
 ElementValuePair {
@@ -329,7 +329,7 @@ elementValue {
 }
 
 ElementValueArrayInitializer {
-  "{" (elementValue ("," elementValue)*)? ","? "}"
+  "{" commaSepTrailing<elementValue> "}"
 }
 
 declaration {
@@ -352,9 +352,9 @@ ModuleBody {
 
 ModuleDirective {
   (kw<"requires"> requiresModifier* name |
-   kw<"exports"> name kw<"to">? name? ("," name)* |
-   kw<"opens"> name kw<"to">? name? ("," name)* |
-   kw<"uses"> name | kw<"provides"> name kw<"with"> name ("," name)*)
+   kw<"exports"> name kw<"to">? commaSep<name> |
+   kw<"opens"> name kw<"to">? commaSep<name> |
+   kw<"uses"> name | kw<"provides"> name kw<"with"> commaSep1<name>)
   ";"
 }
 
@@ -376,7 +376,7 @@ EnumDeclaration {
 }
 
 EnumBody {
-  "{" (EnumConstant ("," EnumConstant)*)? ","? EnumBodyDeclarations? "}"
+  "{" commaSepTrailing<EnumConstant> EnumBodyDeclarations? "}"
 }
 
 EnumBodyDeclarations {
@@ -402,7 +402,7 @@ modifier {
 }
 
 TypeParameters {
-  "<" TypeParameter ("," TypeParameter)* ">"
+  "<" commaSep1<TypeParameter> ">"
 }
 
 TypeParameter {
@@ -422,7 +422,7 @@ SuperInterfaces {
 }
 
 InterfaceTypeList {
-  type ("," type)*
+  commaSep1<type>
 }
 
 ClassBody {
@@ -473,7 +473,7 @@ ScopedIdentifier {
 }
 
 FieldDeclaration {
-  Modifiers? unannotatedType variableDeclaratorList ";"
+  Modifiers? unannotatedType commaSep1<VariableDeclarator> ";"
 }
 
 AnnotationTypeDeclaration {
@@ -519,11 +519,7 @@ InterfaceBody {
 }
 
 ConstantDeclaration {
-  Modifiers? unannotatedType variableDeclaratorList ";"
-}
-
-variableDeclaratorList {
-  VariableDeclarator ("," VariableDeclarator)*
+  Modifiers? unannotatedType commaSep1<VariableDeclarator> ";"
 }
 
 VariableDeclarator {
@@ -540,7 +536,7 @@ variableInitializer {
 }
 
 ArrayInitializer {
-  "{" (variableInitializer ("," variableInitializer)*)? ","? "}"
+  "{" commaSepTrailing<variableInitializer> "}"
 }
 
 type {
@@ -594,7 +590,7 @@ methodDeclarator {
 }
 
 FormalParameters {
-  "(" ReceiverParameter? ((FormalParameter | SpreadParameter) ("," (FormalParameter | SpreadParameter))*)? ")"
+  "(" ReceiverParameter? commaSep<FormalParameter | SpreadParameter> ")"
 }
 
 FormalParameter {
@@ -610,11 +606,11 @@ SpreadParameter {
 }
 
 Throws {
-  kw<"throws"> type ("," type)*
+  kw<"throws"> commaSep1<type>
 }
 
 LocalVariableDeclaration {
-  Modifiers? unannotatedType variableDeclaratorList ";"
+  Modifiers? unannotatedType commaSep1<VariableDeclarator> ";"
 }
 
 MethodDeclaration {
@@ -624,6 +620,12 @@ MethodDeclaration {
 reservedIdentifier[name=Identifier] { kw<"open"> | kw<"module"> }
 
 kw<term> { @specialize[name={term}]<identifier, term> }
+
+commaSep<expr> { (expr ("," expr)*)? }
+
+commaSep1<expr> { expr ("," expr)* }
+
+commaSepTrailing<expr> { (expr ("," expr?)*)? }
 
 @skip { LineComment | BlockComment | whitespace }
 
