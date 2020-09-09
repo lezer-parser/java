@@ -105,11 +105,9 @@ baseExpression {
 }
 
 ArrayCreationExpression {
-  kw<"new"> simpleType (DimensionsExpr+ (!array Dimensions)? | !array Dimensions ArrayInitializer)
-}
-
-DimensionsExpr {
-  annotation* "[" expression "]"
+  kw<"new"> simpleType
+  Dimensions { annotation* !array "[" expression? "]" }+
+  ArrayInitializer?
 }
 
 ParenthesizedExpression {
@@ -648,6 +646,10 @@ kw<term> { @specialize[name={term}]<identifier, term> }
     $[eE] ("-" | "+")? digits
   }
 
+  hexExponent {
+    $[eEpP] ("-" | "+")? digits
+  }
+
   floatSuffix {
     $[fFdD]
   }
@@ -655,7 +657,7 @@ kw<term> { @specialize[name={term}]<identifier, term> }
   FloatingPointLiteral {
     digits ("." digits? exponent? floatSuffix? | exponent floatSuffix? | floatSuffix) |
     "." digits exponent? floatSuffix? |
-    ("0x" | "0X") (hexDigits "."? | hexDigits? "." hexDigits) ($[eEpP] ("-" | "+")? digits floatSuffix?)?
+    ("0x" | "0X") (hexDigits "."? | hexDigits? "." hexDigits) (hexExponent floatSuffix? | floatSuffix)
   }
 
   @precedence { FloatingPointLiteral, IntegerLiteral }
