@@ -20,7 +20,7 @@ a >= b;
 a <= b;
 a != b;
 a && b;
-//a || b;
+a || b;
 a & b;
 a | b;
 a ^ b;
@@ -390,12 +390,14 @@ Program(
         AnnotationArgumentList(
           ElementValuePair(
             Identifier,
+            AssignOp,
             StringLiteral))),
       Annotation(
         Identifier,
         AnnotationArgumentList(
           ElementValuePair(
             Identifier,
+            AssignOp,
             BooleanLiteral)))),
     class,
     Identifier,
@@ -711,7 +713,7 @@ super::something;
 Program(
   ExpressionStatement(AssignmentExpression(Identifier, AssignOp, MethodReference(Identifier, Identifier))),
   ExpressionStatement(MethodReference(FieldAccess(Identifier, Identifier), Identifier)),
-  ExpressionStatement(MethodReference(ArrayType(TypeName, Dimensions))),
+  ExpressionStatement(MethodReference(ArrayType(TypeName, Dimensions), new)),
   ExpressionStatement(MethodReference(GenericType(TypeName, TypeArguments(TypeName)), Identifier)),
-  ExpressionStatement(MethodReference(Super, Identifier)))
+  ExpressionStatement(MethodReference(super, Identifier)))
 

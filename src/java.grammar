@@ -11,6 +11,7 @@
   and @left
   or @left
   ternary @right
+  valuePair
   assign @right
   array @right
   new @right
@@ -58,7 +59,7 @@ BinaryExpression {
   expression !and (op<Logic, "&&"> | BitOp { "&" }) expression |
   expression !or (op<Bit, "|" | "^"> | op<Logic, "||">) expression |
   expression !plus op<Arith, "+" | "-"> expression |
-  expression !times op<Arith, "*" | "/"> expression |
+  expression !times times expression |
   expression !shift (op<Arith, "%"> | op<Bit, "<<" | ">>" ">"?>) expression
 }
 
@@ -137,7 +138,9 @@ ArrayAccess {
 }
 
 MethodInvocation {
-  (Identifier | reservedIdentifier | (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? (Identifier | reservedIdentifier)) ArgumentList
+  (Identifier | reservedIdentifier |
+   (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? (Identifier | reservedIdentifier))
+  ArgumentList
 }
 
 ArgumentList {
@@ -285,7 +288,9 @@ WhileStatement {
 }
 
 ForStatement {
-  kw<"for"> "(" (LocalVariableDeclaration | (expression ("," expression)*)? ";") expression? ";" (expression ("," expression)*)? ")" statement
+  kw<"for">
+  "(" (LocalVariableDeclaration | (expression ("," expression)*)? ";") expression? ";" (expression ("," expression)*)? ")"
+  statement
 }
 
 EnhancedForStatement {
@@ -310,20 +315,20 @@ AnnotationArgumentList {
 }
 
 ElementValuePair {
-  Identifier "=" elementValue
+  Identifier !valuePair "=" elementValue
 }
 
 elementValue {
-  expression |
-  ElementValueArrayInitializer |
-  annotation
+  (expression |
+   ElementValueArrayInitializer |
+   annotation) !valuePair
 }
 
 ElementValueArrayInitializer {
   "{" (elementValue ("," elementValue)*)? ","? "}"
 }
 
-declaration { // FIXME had a precedence, possibly to disambig some keyword with expression position
+declaration {
   ModuleDeclaration |
   PackageDeclaration |
   ImportDeclaration |
@@ -342,7 +347,11 @@ ModuleBody {
 }
 
 ModuleDirective {
-  (kw<"requires"> requiresModifier* name | kw<"exports"> name kw<"to">? name? ("," name)* | kw<"opens"> name kw<"to">? name? ("," name)* | kw<"uses"> name | kw<"provides"> name kw<"with"> name ("," name)*) ";"
+  (kw<"requires"> requiresModifier* name |
+   kw<"exports"> name kw<"to">? name? ("," name)* |
+   kw<"opens"> name kw<"to">? name? ("," name)* |
+   kw<"uses"> name | kw<"provides"> name kw<"with"> name ("," name)*)
+  ";"
 }
 
 requiresModifier {
@@ -468,7 +477,13 @@ AnnotationTypeDeclaration {
 }
 
 AnnotationTypeBody {
-  "{" (AnnotationTypeElementDeclaration | ConstantDeclaration | ClassDeclaration | InterfaceDeclaration | AnnotationTypeDeclaration)* "}"
+  "{" (
+    AnnotationTypeElementDeclaration |
+    ConstantDeclaration |
+    ClassDeclaration |
+    InterfaceDeclaration |
+    AnnotationTypeDeclaration
+  )* "}"
 }
 
 AnnotationTypeElementDeclaration {
@@ -488,7 +503,15 @@ ExtendsInterfaces {
 }
 
 InterfaceBody {
-  "{" (ConstantDeclaration | EnumDeclaration | MethodDeclaration | ClassDeclaration | InterfaceDeclaration | AnnotationTypeDeclaration | ";")* "}"
+  "{" (
+    ConstantDeclaration |
+    EnumDeclaration |
+    MethodDeclaration |
+    ClassDeclaration |
+    InterfaceDeclaration |
+    AnnotationTypeDeclaration |
+    ";"
+  )* "}"
 }
 
 ConstantDeclaration {
@@ -534,9 +557,17 @@ simpleType {
   GenericType
 }
 
-TypeName { ~annotations identifier ~identifier }
+TypeName {
+  ~annotations (
+    capitalIdentifier ~identifier |
+    [dynamicPrecedence=-1] { identifier ~identifier }
+  )
+}
 
-Identifier { identifier ~identifier }
+Identifier {
+  identifier ~identifier |
+  [dynamicPrecedence=-1] { capitalIdentifier ~identifier }
+}
 
 ScopedTypeName {
   (TypeName | ScopedTypeName | GenericType) !scope "." annotation* TypeName
@@ -638,13 +669,17 @@ kw<term> { @specialize[name={term}]<identifier, term> }
 
   Asterisk { "*" }
 
-  identifier { $[a-zA-Z_] $[a-zA-Z0-9_]* }
+  identifier { $[a-z_$] $[a-zA-Z0-9_$]* }
+
+  capitalIdentifier { $[A-Z] $[a-zA-Z0-9_$]* }
 
   AssignOp {
     ("+" | "-" | "*" | "/" | "&" | "|" | "^" | "%" | "<<" | ">>" ">"?) "="
   }
 
   op[name={name} "Op"]<name, body> { body }
+
+  times[name=ArithOp] { "*" | "/" }
 
   LineComment {
     "//" ![\n]*
@@ -654,8 +689,8 @@ kw<term> { @specialize[name={term}]<identifier, term> }
     "/*" ![*]* "\\*"+ (![/*] ![*]* "\\*"+)* "/"
   }
 
-  @precedence { LineComment, op }
-  @precedence { BlockComment, op }
+  @precedence { LineComment, times }
+  @precedence { BlockComment, times }
 
   "="[name=AssignOp]
 
