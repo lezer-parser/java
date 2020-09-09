@@ -21,7 +21,7 @@
 }
 
 @top Program {
-  statement+
+  statement*
 }
 
 literal {
@@ -685,9 +685,11 @@ kw<term> { @specialize[name={term}]<identifier, term> }
     "//" ![\n]*
   }
 
-  BlockComment {
-    "/*" ![*]* "\\*"+ (![/*] ![*]* "\\*"+)* "/"
-  }
+  BlockComment { "/*" blockCommentRest }
+
+  blockCommentRest { ![*] blockCommentRest | "*" blockCommentAfterStar }
+
+  blockCommentAfterStar { "/" | "*" blockCommentAfterStar | ![/*] blockCommentRest }
 
   @precedence { LineComment, times }
   @precedence { BlockComment, times }
