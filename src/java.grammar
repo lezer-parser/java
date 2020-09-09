@@ -50,16 +50,16 @@ CastExpression {
 
 AssignmentExpression {
   (Identifier | reservedIdentifier | FieldAccess | ArrayAccess)
-  !assign ("=" | "+=" | "-=" | "*=" | "/=" | "&=" | "|=" | "^=" | "%=" | "<<=" | ">>=" | ">>>=") expression
+  !assign (AssignOp | "=") expression
 }
 
 BinaryExpression {
-  expression !compare ("<" | ">" | "==" | ">=" | "<=" | "!=") expression |
-  expression !and ("&&" | "&") expression |
-  expression !or ("|" | "^" | "||") expression |
-  expression !plus ("+" | "-") expression |
-  expression !times ("*" | "/") expression |
-  expression !shift ("%" | "<<" | ">>" | ">>>") expression
+  expression !compare (op<Compare, "==" | ">=" | "<=" | "!="> | CompareOp { "<" | ">" }) expression |
+  expression !and (op<Logic, "&&"> | BitOp { "&" }) expression |
+  expression !or (op<Bit, "|" | "^"> | op<Logic, "||">) expression |
+  expression !plus op<Arith, "+" | "-"> expression |
+  expression !times op<Arith, "*" | "/"> expression |
+  expression !shift (op<Arith, "%"> | op<Bit, "<<" | ">>" ">"?>) expression
 }
 
 InstanceofExpression {
@@ -75,17 +75,17 @@ InferredParameters {
 }
 
 TernaryExpression {
-  expression !ternary "?" expression ":" expression
+  expression !ternary op<Logic, "?"> expression ":" expression
 }
 
 UnaryExpression {
-  ("+" | "-") !unaryPlus expression |
-  ("!" | "~") !negate expression
+  op<Arith, "+" | "-"> !unaryPlus expression |
+  (op<Logic, "!"> | op<Bit, "~">) !negate expression
 }
 
 UpdateExpression {
-  expression !update ("++" | "--") |
-  ("++" | "--") !update expression
+  expression !update op<Update, "--" | "++"> |
+  op<Update, "--" | "++"> !update expression
 }
 
 baseExpression {
@@ -342,10 +342,10 @@ ModuleBody {
 }
 
 ModuleDirective {
-  (kw<"requires"> RequiresModifier* name | kw<"exports"> name kw<"to">? name? ("," name)* | kw<"opens"> name kw<"to">? name? ("," name)* | kw<"uses"> name | kw<"provides"> name kw<"with"> name ("," name)*) ";"
+  (kw<"requires"> requiresModifier* name | kw<"exports"> name kw<"to">? name? ("," name)* | kw<"opens"> name kw<"to">? name? ("," name)* | kw<"uses"> name | kw<"provides"> name kw<"with"> name ("," name)*) ";"
 }
 
-RequiresModifier {
+requiresModifier {
   kw<"transitive"> |
   kw<"static">
 }
@@ -384,7 +384,8 @@ Modifiers {
 }
 
 modifier {
-  kw<"public"> | kw<"protected"> | kw<"private"> | kw<"abstract"> | kw<"static"> | kw<"final"> | kw<"strictfp"> | kw<"default"> | kw<"synchronized"> | kw<"native"> | kw<"transient"> | kw<"volatile">
+  kw<"public"> | kw<"protected"> | kw<"private"> | kw<"abstract"> | kw<"static"> | kw<"final"> | kw<"strictfp"> |
+  kw<"default"> kw<"synchronized"> | kw<"native"> | kw<"transient"> | kw<"volatile">
 }
 
 TypeParameters {
@@ -639,14 +640,24 @@ kw<term> { @specialize[name={term}]<identifier, term> }
 
   identifier { $[a-zA-Z_] $[a-zA-Z0-9_]* }
 
+  AssignOp {
+    ("+" | "-" | "*" | "/" | "&" | "|" | "^" | "%" | "<<" | ">>" ">"?) "="
+  }
+
+  op[name={name} "Op"]<name, body> { body }
+
   LineComment {
     "//" ![\n]*
   }
 
-  @precedence { LineComment, "/" }
-  @precedence { BlockComment, "/" }
-
   BlockComment {
     "/*" ![*]* "\\*"+ (![/*] ![*]* "\\*"+)* "/"
   }
+
+  @precedence { LineComment, op }
+  @precedence { BlockComment, op }
+
+  "="[name=AssignOp]
+
+  "{" "}" "(" ")" "[" "]" "." "," ";" ":"
 }
