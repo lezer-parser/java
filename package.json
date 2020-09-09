@@ -1,0 +1,34 @@
+{
+  "name": "lezer-java",
+  "version": "0.10.0",
+  "description": "lezer-based Java grammar",
+  "main": "dist/index.cjs",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.es.js",
+    "require": "./dist/index.cjs"
+  },
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "author": "Marijn Haverbeke <marijnh@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lezer-generator": "^0.10.2",
+    "mocha": "^7.1.1",
+    "rollup": "^1.10.0",
+    "rollup-plugin-node-resolve": "^4.2.3"
+  },
+  "dependencies": {
+    "lezer": "^0.10.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lezer-parser/java.git"
+  },
+  "scripts": {
+    "build": "lezer-generator src/java.grammar -o src/parser && rollup -c",
+    "build-debug": "lezer-generator src/java.grammar --names -o src/parser && rollup -c",
+    "prepare": "npm run build",
+    "test": "mocha test/test-*.js"
+  }
+}
