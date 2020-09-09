@@ -248,11 +248,11 @@ TryStatement {
 }
 
 CatchClause {
-  !else kw<"catch"> "(" CatchFormalParameter ")" Block
+  !else kw<"catch"> CatchFormalParameter Block
 }
 
 CatchFormalParameter {
-  Modifiers? CatchType variableDeclaratorId
+  "(" Modifiers? CatchType variableDeclaratorId ")"
 }
 
 CatchType {
@@ -287,12 +287,18 @@ WhileStatement {
 
 ForStatement {
   kw<"for">
-  "(" (LocalVariableDeclaration | (expression ("," expression)*)? ";") expression? ";" (expression ("," expression)*)? ")"
+  ForSpec {
+    "(" (LocalVariableDeclaration | (expression ("," expression)*)? ";") expression? ";" (expression ("," expression)*)? ")"
+  }
   statement
 }
 
 EnhancedForStatement {
-  kw<"for"> "(" Modifiers? unannotatedType variableDeclaratorId ":" expression ")" statement
+  kw<"for">
+  ForSpec {
+    "(" Modifiers? unannotatedType variableDeclaratorId ":" expression ")"
+  }
+  statement
 }
 
 annotation {
@@ -700,3 +706,5 @@ kw<term> { @specialize[name={term}]<identifier, term> }
 
   "{" "}" "(" ")" "[" "]" "." "," ";" ":"
 }
+
+@detectDelim
