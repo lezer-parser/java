@@ -627,7 +627,7 @@ kw<term> { @specialize[name={term}]<identifier, term> }
   }
 
   digits {
-    $[0-9]+ ("_"+ $[0-9]+)*
+    $[0-9]+ ("_" $[0-9]+)*
   }
 
   hexDigits {
@@ -647,7 +647,7 @@ kw<term> { @specialize[name={term}]<identifier, term> }
   }
 
   hexExponent {
-    $[eEpP] ("-" | "+")? digits
+    $[pP] ("-" | "+")? digits
   }
 
   floatSuffix {
@@ -657,16 +657,16 @@ kw<term> { @specialize[name={term}]<identifier, term> }
   FloatingPointLiteral {
     digits ("." digits? exponent? floatSuffix? | exponent floatSuffix? | floatSuffix) |
     "." digits exponent? floatSuffix? |
-    ("0x" | "0X") (hexDigits "."? | hexDigits? "." hexDigits) (hexExponent floatSuffix? | floatSuffix)
+    ("0x" | "0X") (hexDigits ("." hexDigits?)? | "." hexDigits) hexExponent floatSuffix?
   }
 
   @precedence { FloatingPointLiteral, IntegerLiteral }
 
   CharacterLiteral {
-    "'" (![\\'\n] | "\\\\" ![\n] | "\\\\\\n")+ "'"
+    "'" (![\\'\n] | "\\" ![\n] | "\\\n")+ "'"
   }
   StringLiteral {
-    "\"" (![\\"\n] | "\\\\" (![\n] | "\\n"))* "\""
+    "\"" (![\\"\n] | "\\" (![\n] | "\n"))* "\""
   }
 
   Asterisk { "*" }
