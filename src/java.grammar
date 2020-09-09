@@ -198,7 +198,7 @@ ExpressionStatement {
 }
 
 LabeledStatement {
-  Identifier ":" statement
+  Label { identifier } ":" statement
 }
 
 AssertStatement {
@@ -224,11 +224,11 @@ DoStatement {
 }
 
 BreakStatement {
-  kw<"break"> Identifier? ";"
+  kw<"break"> Label { identifier }? ";"
 }
 
 ContinueStatement {
-  kw<"continue"> Identifier? ";"
+  kw<"continue"> Label { identifier }? ";"
 }
 
 ReturnStatement {
