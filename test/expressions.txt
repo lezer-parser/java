@@ -215,7 +215,7 @@ Program(
     LocalVariableDeclaration(
       PrimitiveType,
       VariableDeclarator(
-        Identifier,
+        Definition,
         AssignOp,
         IntegerLiteral)),
     BinaryExpression(
@@ -266,7 +266,7 @@ for (A b : c) {
 Program(
   EnhancedForStatement(for, ForSpec(
     TypeName,
-    Identifier,
+    Definition,
     Identifier),
     Block(
       ExpressionStatement(MethodInvocation(
@@ -290,23 +290,23 @@ class WhileDemo {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         Modifiers(public, static),
         void,
-        Identifier,
+        Definition,
         FormalParameters(
           FormalParameter(
             ArrayType(
               TypeName,
               Dimensions),
-            Identifier)),
+            Definition)),
         Block(
           LocalVariableDeclaration(
             PrimitiveType,
             VariableDeclarator(
-              Identifier,
+              Definition,
               AssignOp,
               IntegerLiteral)),
           WhileStatement(while,
@@ -339,7 +339,7 @@ Program(
     ResourceSpecification(
       Resource(
         TypeName,
-        Identifier,
+        Definition,
         AssignOp,
         ObjectCreationExpression(new,
           TypeName,
@@ -348,7 +348,7 @@ Program(
       LocalVariableDeclaration(
         PrimitiveType,
         VariableDeclarator(
-          Identifier,
+          Definition,
           AssignOp,
           MethodInvocation(
             Identifier,
@@ -400,7 +400,7 @@ Program(
             AssignOp,
             BooleanLiteral)))),
     class,
-    Identifier,
+    Definition,
     ClassBody))
 
 
@@ -420,12 +420,12 @@ Program(
   ClassDeclaration(
     Modifiers(MarkerAnnotation(Identifier)),
     class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         Modifiers(MarkerAnnotation(Identifier), public),
         void,
-        Identifier,
+        Definition,
         FormalParameters,
         Block))))
 
@@ -446,7 +446,7 @@ Program(
       Annotation(Identifier, AnnotationArgumentList(FieldAccess(Identifier, Identifier))),
       Annotation(Identifier, AnnotationArgumentList(StringLiteral))),
     class,
-    Identifier,
+    Definition,
     ClassBody))
 
 
@@ -463,18 +463,18 @@ class LambdaTest {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         void,
-        Identifier,
+        Definition,
         FormalParameters,
         Block(
           ExpressionStatement(LambdaExpression(
-            Identifier,
+            Definition,
             Identifier)),
           ExpressionStatement(LambdaExpression(
-            InferredParameters(Identifier, Identifier),
+            InferredParameters(Definition, Definition),
             BinaryExpression(Identifier, ArithOp, Identifier))))))))
 
 
@@ -504,28 +504,28 @@ Program(
   ClassDeclaration(
     Modifiers(public),
     class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         Modifiers(public, static),
         void,
-        Identifier,
+        Definition,
         FormalParameters(
           FormalParameter(
             ArrayType(
               TypeName,
               Dimensions),
-            Identifier)),
+            Definition)),
         Block(
           LocalVariableDeclaration(
             PrimitiveType,
             VariableDeclarator(
-              Identifier,
+              Definition,
               AssignOp,
               IntegerLiteral)),
           LocalVariableDeclaration(
             TypeName,
-            VariableDeclarator(Identifier)),
+            VariableDeclarator(Definition)),
           SwitchStatement(switch,
             ParenthesizedExpression(Identifier),
             SwitchBlock(
@@ -573,22 +573,22 @@ class Box <T> {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
       TypeParameters(
         TypeParameter(
-          Identifier)),
+          Definition)),
     ClassBody(
       FieldDeclaration(
         Modifiers(private),
           TypeName,
-          VariableDeclarator(Identifier)),
+          VariableDeclarator(Definition)),
       ConstructorDeclaration(
         Modifiers(public),
-        Identifier,
+        Definition,
         FormalParameters(
           FormalParameter(
             TypeName,
-            Identifier)),
+            Definition)),
         ConstructorBody(
           ExpressionStatement(AssignmentExpression(
             Identifier, AssignOp, Identifier)))),
@@ -605,14 +605,14 @@ class WildcardDemo {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
       ClassBody(
         FieldDeclaration(
           GenericType(
             TypeName,
             TypeArguments(
               Wildcard(extends, TypeName))),
-          VariableDeclarator(Identifier)))))
+          VariableDeclarator(Definition)))))
 
 
 # type arguments with generic types
@@ -631,17 +631,17 @@ class someClass <T> {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
     TypeParameters(
       TypeParameter(
-        Identifier)),
+        Definition)),
       ClassBody(
         MethodDeclaration(
           Modifiers(public),
             GenericType(
               TypeName,
               TypeArguments(TypeName)),
-            Identifier,
+            Definition,
             FormalParameters,
             Block(
               LocalVariableDeclaration(
@@ -649,7 +649,7 @@ Program(
                   TypeName,
                   TypeArguments(TypeName)),
                 VariableDeclarator(
-                  Identifier,
+                  Definition,
                   AssignOp,
                   MethodInvocation(
                     Identifier,
@@ -661,20 +661,20 @@ Program(
           Modifiers(public, static),
           TypeParameters(
             TypeParameter(
-              Identifier)),
+              Definition)),
           void,
-            Identifier,
+            Definition,
             FormalParameters(
               FormalParameter(
                 TypeName,
-                Identifier)),
+                Definition)),
             Block(
               LocalVariableDeclaration(
                 GenericType(
                   TypeName,
                   TypeArguments(TypeName)),
                 VariableDeclarator(
-                  Identifier,
+                  Definition,
                   AssignOp,
                   MethodInvocation(
                     Identifier,
@@ -693,7 +693,7 @@ Program(
   LocalVariableDeclaration(
     GenericType(TypeName, TypeArguments(TypeName)),
     VariableDeclarator(
-      Identifier,
+      Definition,
       AssignOp,
       ObjectCreationExpression(new,
         GenericType(TypeName, TypeArguments),

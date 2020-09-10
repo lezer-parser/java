@@ -50,7 +50,7 @@ CastExpression {
 }
 
 AssignmentExpression {
-  (Identifier | reservedIdentifier | FieldAccess | ArrayAccess)
+  (Identifier | FieldAccess | ArrayAccess)
   !assign (AssignOp | "=") expression
 }
 
@@ -68,11 +68,11 @@ InstanceofExpression {
 }
 
 LambdaExpression {
-  (Identifier | FormalParameters | InferredParameters) "->" (expression | Block)
+  (Definition | FormalParameters | InferredParameters) "->" (expression | Block)
 }
 
 InferredParameters {
-  "(" commaSep1<Identifier ~identifier> ")"
+  "(" commaSep1<Definition ~identifier> ")"
 }
 
 TernaryExpression {
@@ -94,7 +94,6 @@ baseExpression {
   ClassLiteral |
   kw<"this"> |
   Identifier ~identifier |
-  reservedIdentifier |
   ParenthesizedExpression |
   ObjectCreationExpression |
   FieldAccess |
@@ -128,7 +127,7 @@ unqualifiedObjectCreationExpression {
 }
 
 FieldAccess {
-  (baseExpression | kw<"super">) ("." kw<"super">)? "." (Identifier | reservedIdentifier | kw<"this">)
+  (baseExpression | kw<"super">) ("." kw<"super">)? "." (Identifier | kw<"this">)
 }
 
 ArrayAccess {
@@ -136,8 +135,8 @@ ArrayAccess {
 }
 
 MethodInvocation {
-  (Identifier | reservedIdentifier |
-   (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? (Identifier | reservedIdentifier))
+  (Identifier |
+   (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? Identifier)
   ArgumentList
 }
 
@@ -343,7 +342,7 @@ declaration {
 }
 
 ModuleDeclaration {
-  annotation* kw<"open">? kw<"module"> name ModuleBody
+  annotation* ckw<"open">? ckw<"module"> name ModuleBody
 }
 
 ModuleBody {
@@ -372,7 +371,7 @@ ImportDeclaration {
 }
 
 EnumDeclaration {
-  Modifiers? kw<"enum"> Identifier SuperInterfaces? EnumBody
+  Modifiers? kw<"enum"> Definition SuperInterfaces? EnumBody
 }
 
 EnumBody {
@@ -384,11 +383,11 @@ EnumBodyDeclarations {
 }
 
 EnumConstant {
-  Modifiers? Identifier ArgumentList? ClassBody?
+  Modifiers? Definition ArgumentList? ClassBody?
 }
 
 ClassDeclaration {
-  Modifiers? kw<"class"> Identifier TypeParameters? Superclass? SuperInterfaces? ClassBody
+  Modifiers? kw<"class"> Definition TypeParameters? Superclass? SuperInterfaces? ClassBody
 }
 
 Modifiers {
@@ -406,7 +405,7 @@ TypeParameters {
 }
 
 TypeParameter {
-  annotation* Identifier TypeBound?
+  annotation* Definition TypeBound?
 }
 
 TypeBound {
@@ -451,7 +450,7 @@ ConstructorDeclaration {
 }
 
 constructorDeclarator {
-  TypeParameters? Identifier FormalParameters
+  TypeParameters? Definition FormalParameters
 }
 
 ConstructorBody {
@@ -464,7 +463,6 @@ ExplicitConstructorInvocation {
 
 name {
   Identifier |
-  reservedIdentifier |
   ScopedIdentifier
 }
 
@@ -499,7 +497,7 @@ defaultValue {
 }
 
 InterfaceDeclaration {
-  Modifiers? kw<"interface"> Identifier TypeParameters? ExtendsInterfaces? InterfaceBody
+  Modifiers? kw<"interface"> Definition TypeParameters? ExtendsInterfaces? InterfaceBody
 }
 
 ExtendsInterfaces {
@@ -527,7 +525,7 @@ VariableDeclarator {
 }
 
 variableDeclaratorId {
-  (Identifier | reservedIdentifier) Dimensions?
+  Definition Dimensions?
 }
 
 variableInitializer {
@@ -569,6 +567,11 @@ Identifier {
   [dynamicPrecedence=-1] { capitalIdentifier ~identifier }
 }
 
+Definition {
+  identifier ~identifier |
+  capitalIdentifier ~identifier
+}
+
 ScopedTypeName {
   (TypeName | ScopedTypeName | GenericType) !scope "." annotation* TypeName
 }
@@ -586,7 +589,7 @@ methodHeader {
 }
 
 methodDeclarator {
-  (Identifier | reservedIdentifier) FormalParameters Dimensions?
+  Definition FormalParameters Dimensions?
 }
 
 FormalParameters {
@@ -617,9 +620,9 @@ MethodDeclaration {
   Modifiers? methodHeader (Block | ";")
 }
 
-reservedIdentifier[name=Identifier] { kw<"open"> | kw<"module"> }
-
 kw<term> { @specialize[name={term}]<identifier, term> }
+
+ckw<term> { @extend[name={term}]<identifier, term> }
 
 commaSep<expr> { (expr ("," expr)*)? }
 

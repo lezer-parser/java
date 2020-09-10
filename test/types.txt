@@ -14,28 +14,28 @@ class Beyonce {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         PrimitiveType,
-        Identifier,
+        Definition,
         FormalParameters,
         Block(
           LocalVariableDeclaration(
             PrimitiveType,
-              VariableDeclarator(Identifier)),
+              VariableDeclarator(Definition)),
           LocalVariableDeclaration(
             PrimitiveType,
-              VariableDeclarator(Identifier)),
+              VariableDeclarator(Definition)),
           LocalVariableDeclaration(
             PrimitiveType,
-              VariableDeclarator(Identifier)),
+              VariableDeclarator(Definition)),
           LocalVariableDeclaration(
             PrimitiveType,
-              VariableDeclarator(Identifier)),
+              VariableDeclarator(Definition)),
           LocalVariableDeclaration(
             PrimitiveType,
-              VariableDeclarator(Identifier)))))))
+              VariableDeclarator(Definition)))))))
 
 
 # floating point types
@@ -51,17 +51,17 @@ class Beyonce {
 
 Program(
   ClassDeclaration(class,
-    Identifier,
+    Definition,
     ClassBody(
       MethodDeclaration(
         PrimitiveType,
-        Identifier,
+        Definition,
         FormalParameters,
         Block(
           LocalVariableDeclaration(
             PrimitiveType,
-            VariableDeclarator(Identifier)),
+            VariableDeclarator(Definition)),
           LocalVariableDeclaration(
             PrimitiveType,
-            VariableDeclarator(Identifier)))))))
+            VariableDeclarator(Definition)))))))
 
