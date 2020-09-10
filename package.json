@@ -19,7 +19,7 @@
     "rollup-plugin-node-resolve": "^4.2.3"
   },
   "dependencies": {
-    "lezer": "^0.10.1"
+    "lezer": "^0.10.3"
   },
   "repository": {
     "type" : "git",
