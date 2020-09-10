@@ -1,4 +1,4 @@
-# lezer-cpp
+# lezer-java
 
 This is a Java grammar for the
 [Lezer](https://lezer.codemirror.net/) parser system.
