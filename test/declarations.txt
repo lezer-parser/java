@@ -37,7 +37,7 @@ Program(
   LocalVariableDeclaration(
     ArrayType(
       TypeName,
-      Dimensions),
+      Dimension),
     VariableDeclarator(
       Definition,
       AssignOp,
@@ -50,14 +50,14 @@ Program(
   LocalVariableDeclaration(
     ArrayType(
       TypeName,
-      Dimensions),
+      Dimension, Dimension),
     VariableDeclarator(
       Definition,
       AssignOp,
       ArrayCreationExpression(new,
         TypeName,
-        Dimensions(IntegerLiteral),
-        Dimensions))))
+        Dimension(IntegerLiteral),
+        Dimension))))
 
 
 # module

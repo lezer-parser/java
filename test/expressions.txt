@@ -77,7 +77,7 @@ Program(
   ExpressionStatement(InstanceofExpression(
     Identifier,
     instanceof,
-    ArrayType(TypeName, Dimensions))))
+    ArrayType(TypeName, Dimension))))
 
 
 # if statements
@@ -300,7 +300,7 @@ Program(
           FormalParameter(
             ArrayType(
               TypeName,
-              Dimensions),
+              Dimension),
             Definition)),
         Block(
           LocalVariableDeclaration(
@@ -514,7 +514,7 @@ Program(
           FormalParameter(
             ArrayType(
               TypeName,
-              Dimensions),
+              Dimension),
             Definition)),
         Block(
           LocalVariableDeclaration(
@@ -713,7 +713,7 @@ super::something;
 Program(
   ExpressionStatement(AssignmentExpression(Identifier, AssignOp, MethodReference(Identifier, Identifier))),
   ExpressionStatement(MethodReference(FieldAccess(Identifier, Identifier), Identifier)),
-  ExpressionStatement(MethodReference(ArrayType(TypeName, Dimensions), new)),
+  ExpressionStatement(MethodReference(ArrayType(TypeName, Dimension), new)),
   ExpressionStatement(MethodReference(GenericType(TypeName, TypeArguments(TypeName)), Identifier)),
   ExpressionStatement(MethodReference(super, Identifier)))
 

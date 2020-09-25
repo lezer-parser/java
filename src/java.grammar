@@ -105,7 +105,7 @@ baseExpression {
 
 ArrayCreationExpression {
   kw<"new"> simpleType
-  Dimensions { annotation* !array "[" expression? "]" }+
+  Dimension { annotation* !array "[" expression? "]" }+
   ArrayInitializer?
 }
 
@@ -161,8 +161,8 @@ wildcardBounds {
   kw<"super"> type
 }
 
-Dimensions {
-  (annotation* !array "[" "]")+
+Dimension {
+  annotation* !array "[" "]"+
 }
 
 statement {
@@ -489,7 +489,7 @@ AnnotationTypeBody {
 }
 
 AnnotationTypeElementDeclaration {
-  Modifiers? unannotatedType Identifier "(" ")" Dimensions? defaultValue? ";"
+  Modifiers? unannotatedType Identifier "(" ")" Dimension* defaultValue? ";"
 }
 
 defaultValue {
@@ -525,7 +525,7 @@ VariableDeclarator {
 }
 
 variableDeclaratorId {
-  Definition Dimensions?
+  Definition Dimension*
 }
 
 variableInitializer {
@@ -581,7 +581,7 @@ GenericType[dynamicPrecedence=1] {
 }
 
 ArrayType {
-  unannotatedType Dimensions
+  unannotatedType !array Dimension+
 }
 
 methodHeader {
@@ -589,7 +589,7 @@ methodHeader {
 }
 
 methodDeclarator {
-  Definition FormalParameters Dimensions?
+  Definition FormalParameters Dimension*
 }
 
 FormalParameters {
