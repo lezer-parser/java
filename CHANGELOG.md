@@ -1,3 +1,13 @@
+## 0.11.0 (2020-09-26)
+
+### Breaking changes
+
+Follow change in serialized parser format.
+
+### Bug fixes
+
+Fix a conflict previously hidden by a bug in the generator.
+
 ## 0.10.0 (2020-09-10)
 
 ### Breaking changes
