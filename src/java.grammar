@@ -27,7 +27,7 @@
 literal {
   IntegerLiteral |
   FloatingPointLiteral |
-  @specialize[name=BooleanLiteral]<identifier, "true" | "false"> |
+  @specialize[@name=BooleanLiteral]<identifier, "true" | "false"> |
   CharacterLiteral |
   StringLiteral |
   kw<"null">
@@ -549,7 +549,7 @@ unannotatedType {
 
 simpleType {
   kw<"void"> |
-  @specialize[name=PrimitiveType]<identifier, "byte" | "short" | "int" | "long" | "char" | "float" | "double" | "boolean"> |
+  @specialize[@name=PrimitiveType]<identifier, "byte" | "short" | "int" | "long" | "char" | "float" | "double" | "boolean"> |
   TypeName |
   ScopedTypeName |
   GenericType
@@ -558,13 +558,13 @@ simpleType {
 TypeName {
   ~annotations (
     capitalIdentifier ~identifier |
-    [dynamicPrecedence=-1] { identifier ~identifier }
+    [@dynamicPrecedence=-1] { identifier ~identifier }
   )
 }
 
 Identifier {
   identifier ~identifier |
-  [dynamicPrecedence=-1] { capitalIdentifier ~identifier }
+  [@dynamicPrecedence=-1] { capitalIdentifier ~identifier }
 }
 
 Definition {
@@ -576,7 +576,7 @@ ScopedTypeName {
   (TypeName | ScopedTypeName | GenericType) !scope "." annotation* TypeName
 }
 
-GenericType[dynamicPrecedence=1] {
+GenericType[@dynamicPrecedence=1] {
   (TypeName | ScopedTypeName) !typeArgs TypeArguments
 }
 
@@ -620,9 +620,9 @@ MethodDeclaration {
   Modifiers? methodHeader (Block | ";")
 }
 
-kw<term> { @specialize[name={term}]<identifier, term> }
+kw<term> { @specialize[@name={term}]<identifier, term> }
 
-ckw<term> { @extend[name={term}]<identifier, term> }
+ckw<term> { @extend[@name={term}]<identifier, term> }
 
 commaSep<expr> { (expr ("," expr)*)? }
 
@@ -690,9 +690,9 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
     ("+" | "-" | "*" | "/" | "&" | "|" | "^" | "%" | "<<" | ">>" ">"?) "="
   }
 
-  op[name={name} "Op"]<name, body> { body }
+  op[@name={name} "Op"]<name, body> { body }
 
-  times[name=ArithOp] { "*" | "/" }
+  times[@name=ArithOp] { "*" | "/" }
 
   LineComment {
     "//" ![\n]*
@@ -707,7 +707,7 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
   @precedence { LineComment, times }
   @precedence { BlockComment, times }
 
-  "="[name=AssignOp]
+  "="[@name=AssignOp]
 
   "{" "}" "(" ")" "[" "]" "." "," ";" ":"
 }
