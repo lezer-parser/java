@@ -33,7 +33,7 @@ literal {
   kw<"null">
 }
 
-expression {
+expression[@isGroup=Expression] {
   AssignmentExpression |
   BinaryExpression |
   InstanceofExpression |
@@ -165,7 +165,7 @@ Dimension {
   annotation* !array "[" "]"+
 }
 
-statement {
+statement[@isGroup=Statement] {
   declaration |
   ExpressionStatement |
   LabeledStatement |
@@ -537,7 +537,7 @@ ArrayInitializer {
   "{" commaSepTrailing<variableInitializer> "}"
 }
 
-type {
+type[@isGroup=Type] {
   unannotatedType |
   AnnotatedType { annotation+ unannotatedType }
 }
