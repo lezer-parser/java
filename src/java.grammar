@@ -134,9 +134,11 @@ ArrayAccess {
   baseExpression "[" expression "]"
 }
 
+MethodName { Identifier }
+
 MethodInvocation {
-  (Identifier |
-   (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? Identifier)
+  (MethodName |
+   (baseExpression | kw<"super">) "." (kw<"super"> ".")? TypeArguments? MethodName)
   ArgumentList
 }
 

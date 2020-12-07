@@ -43,9 +43,9 @@ Program(
       AssignOp,
       MethodInvocation(
         MethodInvocation(
-          Identifier,
+          MethodName(Identifier),
           ArgumentList),
-        Identifier,
+        MethodName(Identifier),
         ArgumentList))),
   LocalVariableDeclaration(
     ArrayType(

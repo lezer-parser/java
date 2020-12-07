@@ -173,9 +173,9 @@ Program(
     ParenthesizedExpression(Identifier),
     IfStatement(if,
       ParenthesizedExpression(Identifier),
-      ExpressionStatement(MethodInvocation(Identifier, ArgumentList)),
+      ExpressionStatement(MethodInvocation(MethodName(Identifier), ArgumentList)),
       else,
-      ExpressionStatement(MethodInvocation(Identifier, ArgumentList)))))
+      ExpressionStatement(MethodInvocation(MethodName(Identifier), ArgumentList)))))
 
 
 # ternary expressions
@@ -228,7 +228,7 @@ Program(
         FieldAccess(
           Identifier,
           Identifier),
-        Identifier,
+        MethodName(Identifier),
         ArgumentList(BinaryExpression(
           StringLiteral,
           ArithOp,
@@ -236,22 +236,22 @@ Program(
   ForStatement(for, ForSpec(
     MethodInvocation(
       Identifier,
-      Identifier,
+      MethodName(Identifier),
       ArgumentList(Identifier)),
     MethodInvocation(
       Identifier,
-      Identifier,
+      MethodName(Identifier),
       ArgumentList),
     MethodInvocation(
       Identifier,
-      Identifier,
+      MethodName(Identifier),
       ArgumentList)),
     Block(
       ExpressionStatement(MethodInvocation(
         FieldAccess(
           Identifier,
           Identifier),
-        Identifier,
+        MethodName(Identifier),
         ArgumentList(Identifier))))))
 
 
@@ -270,7 +270,7 @@ Program(
     Identifier),
     Block(
       ExpressionStatement(MethodInvocation(
-        Identifier,
+        MethodName(Identifier),
         ArgumentList(Identifier))))))
 
 
@@ -320,7 +320,7 @@ Program(
                 FieldAccess(
                   Identifier,
                   Identifier),
-                Identifier,
+                MethodName(Identifier),
                 ArgumentList(
                   BinaryExpression(StringLiteral, ArithOp, Identifier)))),
               ExpressionStatement(UpdateExpression(Identifier, UpdateOp)))))))))
@@ -352,7 +352,7 @@ Program(
           AssignOp,
           MethodInvocation(
             Identifier,
-            Identifier,
+            MethodName(Identifier),
             ArgumentList))))))
 
 
@@ -369,7 +369,7 @@ Program(
   ReturnStatement(return,Identifier),
   ReturnStatement(return,BinaryExpression(Identifier, ArithOp, Identifier)),
   ReturnStatement(return,BinaryExpression(Identifier, ArithOp, IntegerLiteral)),
-  ReturnStatement(return,MethodInvocation(Identifier, ArgumentList(Identifier))))
+  ReturnStatement(return,MethodInvocation(MethodName(Identifier), ArgumentList(Identifier))))
 
 
 # annotation
@@ -557,7 +557,7 @@ Program(
             FieldAccess(
               Identifier,
               Identifier),
-            Identifier,
+            MethodName(Identifier),
             ArgumentList(Identifier))))))))
 
 
@@ -654,7 +654,7 @@ Program(
                   MethodInvocation(
                     Identifier,
                     TypeArguments(TypeName),
-                    Identifier,
+                    MethodName(Identifier),
                     ArgumentList))),
               ReturnStatement(return,Identifier))),
         MethodDeclaration(
@@ -679,7 +679,7 @@ Program(
                   MethodInvocation(
                     Identifier,
                     TypeArguments(TypeName),
-                    Identifier,
+                    MethodName(Identifier),
                     ArgumentList))))))))
 
 
