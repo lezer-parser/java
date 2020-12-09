@@ -1,3 +1,9 @@
+## 0.13.2 (2020-12-09)
+
+### New features
+
+The method name in MethodInvocation nodes is now wrapped in a MethodName node.
+
 ## 0.13.1 (2020-12-04)
 
 ### Bug fixes
