@@ -164,7 +164,7 @@ wildcardBounds {
 }
 
 Dimension {
-  annotation* !array "[" "]"+
+  annotation* !array "[" "]"
 }
 
 statement[@isGroup=Statement] {
