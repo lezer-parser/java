@@ -617,7 +617,7 @@ Throws {
 }
 
 LocalVariableDeclaration {
-  Modifiers? unannotatedType commaSep1<VariableDeclarator> ";"
+  Modifiers? (ckw<"var"> | unannotatedType) commaSep1<VariableDeclarator> ";"
 }
 
 MethodDeclaration {
