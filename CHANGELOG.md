@@ -1,3 +1,11 @@
+## 0.15.0 (2021-08-11)
+
+### Breaking changes
+
+The module's name changed from `lezer-java` to `@lezer/java`.
+
+Upgrade to the 0.15.0 lezer interfaces.
+
 ## 0.13.2 (2020-12-09)
 
 ### New features
