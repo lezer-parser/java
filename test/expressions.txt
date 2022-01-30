@@ -717,3 +717,13 @@ Program(
   ExpressionStatement(MethodReference(GenericType(TypeName, TypeArguments(TypeName)), Identifier)),
   ExpressionStatement(MethodReference(super, Identifier)))
 
+# text block
+
+x = """
+    hello
+    multi-""-line
+    foo""";
+
+==>
+
+Program(ExpressionStatement(AssignmentExpression(Identifier,AssignOp,TextBlock)))

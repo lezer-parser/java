@@ -30,7 +30,12 @@ literal {
   @specialize[@name=BooleanLiteral]<identifier, "true" | "false"> |
   CharacterLiteral |
   StringLiteral |
+  TextBlock |
   kw<"null">
+}
+
+@skip {} {
+  TextBlock { textBlockStart textBlockContent* textBlockEnd }
 }
 
 expression[@isGroup=Expression] {
@@ -683,6 +688,14 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
   StringLiteral {
     "\"" (![\\"\n] | "\\" (![\n] | "\n"))* "\""
   }
+  textBlockStart {
+    '"""' $[ \t]* "\n"
+  }
+  @precedence { textBlockStart, StringLiteral }
+  textBlockContent { "\n" | !["\n] textBlockContent? | '"' textBlockQuote }
+  textBlockQuote { !["\n] textBlockContent | "\n" | '"' textBlockQuote2 }
+  textBlockQuote2 { !["\n] textBlockContent | "\n" }
+  textBlockEnd { '"""' }
 
   Asterisk { "*" }
 
