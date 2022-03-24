@@ -729,4 +729,6 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
   "{" "}" "(" ")" "[" "]" "." "," ";" ":"
 }
 
+@external propSource javaHighlighting from "./highlight"
+
 @detectDelim
