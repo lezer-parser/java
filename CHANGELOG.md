@@ -1,3 +1,17 @@
+## 0.16.0 (2022-04-20)
+
+### Breaking changes
+
+Move to 0.16 serialized parser format.
+
+### Bug fixes
+
+Support triple-quoted textblock literals.
+
+### New features
+
+The parser now includes syntax highlighting information in its node types.
+
 ## 0.15.0 (2021-08-11)
 
 ### Breaking changes
