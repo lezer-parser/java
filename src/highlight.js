@@ -11,7 +11,7 @@ export const javaHighlighting = styleTags({
   ["requires exports opens uses provides public private protected static transitive abstract final " +
    "strictfp synchronized native transient volatile throws"]: t.modifier,
   IntegerLiteral: t.integer,
-  FloatLiteral: t.float,
+  FloatingPointLiteral: t.float,
   "StringLiteral TextBlock": t.string,
   CharacterLiteral: t.character,
   LineComment: t.lineComment,
