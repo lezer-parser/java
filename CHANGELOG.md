@@ -1,3 +1,9 @@
+## 1.0.1 (2023-02-02)
+
+### Bug fixes
+
+Fix highlighting information for float literals.
+
 ## 1.0.0 (2022-06-06)
 
 ### New features
