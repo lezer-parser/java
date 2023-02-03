@@ -558,6 +558,7 @@ unannotatedType {
 
 simpleType {
   kw<"void"> |
+  ckw<"var"> |
   @specialize[@name=PrimitiveType]<identifier, "byte" | "short" | "int" | "long" | "char" | "float" | "double" | "boolean"> |
   TypeName |
   ScopedTypeName |
@@ -622,7 +623,7 @@ Throws {
 }
 
 LocalVariableDeclaration {
-  Modifiers? (ckw<"var"> | unannotatedType) commaSep1<VariableDeclarator> ";"
+  Modifiers? unannotatedType commaSep1<VariableDeclarator> ";"
 }
 
 MethodDeclaration {
