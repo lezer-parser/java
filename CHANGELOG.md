@@ -1,3 +1,9 @@
+## 1.0.2 (2023-02-06)
+
+### Bug fixes
+
+Add missing highlighting tag for the `var` keyword.
+
 ## 1.0.1 (2023-02-02)
 
 ### Bug fixes
