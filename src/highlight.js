@@ -5,7 +5,7 @@ export const javaHighlighting = styleTags({
     instanceof: t.operatorKeyword,
   this: t.self,
   "new super assert open to with void": t.keyword,
-  "class interface extends implements enum": t.definitionKeyword,
+  "class interface extends implements enum var": t.definitionKeyword,
   "module package import": t.moduleKeyword,
   "switch while for if else case default do break continue return try catch finally throw": t.controlKeyword,
   ["requires exports opens uses provides public private protected static transitive abstract final " +
