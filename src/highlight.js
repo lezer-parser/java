@@ -17,7 +17,7 @@ export const javaHighlighting = styleTags({
   LineComment: t.lineComment,
   BlockComment: t.blockComment,
   BooleanLiteral: t.bool,
-  "PrimitiveType var": t.standard(t.typeName),
+  PrimitiveType: t.standard(t.typeName),
   TypeName: t.typeName,
   Identifier: t.variableName,
   "MethodName/Identifier": t.function(t.variableName),
