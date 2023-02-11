@@ -1,3 +1,9 @@
+## 1.0.3 (2023-02-11)
+
+### Bug fixes
+
+Allow multiple adjacent underscores in number literals.
+
 ## 1.0.2 (2023-02-06)
 
 ### Bug fixes
