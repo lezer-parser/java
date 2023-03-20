@@ -186,16 +186,6 @@ Program(
   ExpressionStatement(CharacterLiteral))
 
 
-# unicode escapes
-
-'\\u2122=\u2122';
-
-==>
-
-Program(
-  ExpressionStatement(CharacterLiteral))
-
-
 # ascii escapes
 
 '\NUL';

@@ -683,7 +683,7 @@ commaSepTrailing<expr> { (expr ("," expr?)*)? }
   @precedence { FloatingPointLiteral, IntegerLiteral }
 
   CharacterLiteral {
-    "'" (![\\'\n] | "\\" ![\n] | "\\\n")+ "'"
+    "'" (![\\'\n] | "\\" ("'" | "\\" | ![\n\\']+)) "'"
   }
   StringLiteral {
     "\"" (![\\"\n] | "\\" (![\n] | "\n"))* "\""
