@@ -1,3 +1,9 @@
+## 1.0.4 (2023-07-03)
+
+### Bug fixes
+
+Make the package work with new TS resolution styles.
+
 ## 1.0.3 (2023-02-11)
 
 ### Bug fixes
