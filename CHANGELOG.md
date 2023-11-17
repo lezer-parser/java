@@ -1,3 +1,9 @@
+## 1.1.0 (2023-11-17)
+
+### New features
+
+The new `"ClassContent"` top rule allows you to parse only class body declarations.
+
 ## 1.0.4 (2023-07-03)
 
 ### Bug fixes
