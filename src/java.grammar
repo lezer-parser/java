@@ -24,6 +24,10 @@
   statement*
 }
 
+@top ClassContent {
+  classBodyDeclaration*
+}
+
 literal {
   IntegerLiteral |
   FloatingPointLiteral |
