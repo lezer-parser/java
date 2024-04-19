@@ -727,3 +727,24 @@ x = """
 ==>
 
 Program(ExpressionStatement(AssignmentExpression(Identifier,AssignOp,TextBlock)))
+
+# precedence
+
+x = 1 < 2 || a & b ^ c * 2 && 1 + d | e;
+
+==>
+
+Program(ExpressionStatement(AssignmentExpression(Identifier,AssignOp,
+  BinaryExpression(
+    BinaryExpression(IntegerLiteral,CompareOp,IntegerLiteral),
+    LogicOp,
+    BinaryExpression(
+      BinaryExpression(
+        BinaryExpression(Identifier,BitOp,Identifier),
+        BitOp,
+        BinaryExpression(Identifier,ArithOp,IntegerLiteral)),
+      LogicOp,
+      BinaryExpression(
+        BinaryExpression(IntegerLiteral,ArithOp,Identifier),
+        BitOp,
+        Identifier))))))
