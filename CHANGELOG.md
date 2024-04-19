@@ -1,3 +1,9 @@
+## 1.1.2 (2024-04-19)
+
+### Bug fixes
+
+Fix incorrect precedences for binary operators.
+
 ## 1.1.1 (2023-12-28)
 
 ### Bug fixes
