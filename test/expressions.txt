@@ -748,3 +748,11 @@ Program(ExpressionStatement(AssignmentExpression(Identifier,AssignOp,
         BinaryExpression(IntegerLiteral,ArithOp,Identifier),
         BitOp,
         Identifier))))))
+
+# Unicode identifiers
+
+Amélie + 橘子;
+
+==>
+
+Program(ExpressionStatement(BinaryExpression(Identifier,ArithOp,Identifier)))
