@@ -1,3 +1,9 @@
+## 1.1.3 (2024-10-05)
+
+### Bug fixes
+
+Allow identifiers to contain non-ASCII chars.
+
 ## 1.1.2 (2024-04-19)
 
 ### Bug fixes
