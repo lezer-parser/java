@@ -1,3 +1,5 @@
+**This repository has moved to https://code.haverbeke.berlin/lezer/java**
+
 # @lezer/java
 
 This is a Java grammar for the
